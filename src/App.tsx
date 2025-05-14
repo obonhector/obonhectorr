@@ -1,7 +1,7 @@
 import React from 'react';
 import { StarBackground } from './StarBackground';
 // No importamos Card desde './components/Card' porque ahora está definido aquí abajo
-import { Youtube, Instagram, Twitter, Linkedin, Mail, Lightbulb, Music, type LucideProps, Bot, BotIcon } from 'lucide-react';
+import { Youtube, Instagram, Twitter, Linkedin, Mail, type LucideProps, BotIcon } from 'lucide-react';
 
 // --- Definición del componente Card ---
 interface CardProps {
