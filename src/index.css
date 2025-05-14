@@ -1,0 +1,95 @@
+/* index.css */
+/* Import Tailwind's base, components, and utilities styles */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Define CSS custom properties for colors, to be used by Tailwind and custom styles.
+   These are based on the HSL values you provided. */
+@layer base {
+  :root {
+    --background-hsl: 222 47% 4%;  /* Violeta oscuro del logo */
+    --foreground-hsl: 213 31% 91%; /* Texto claro, se mantiene */
+    --card-hsl: 266 54% 27%; /* Violeta más claro para las tarjetas */
+    --primary-hsl: 327 77% 59%; /* Rosa/fucsia del logo */
+    --primary-foreground-hsl: 213 31% 91%; /* Texto sobre primary, se mantiene */
+    --border-hsl: 266 54% 35%; /* Borde violeta intermedio */
+  }
+
+
+  * {
+    /* Apply border color using the CSS custom property */
+    border-color: hsl(var(--border-hsl));
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    /* Apply background and foreground colors using CSS custom properties */
+    background-color: hsl(var(--background-hsl));
+    color: hsl(var(--foreground-hsl));
+    @apply transition-colors duration-300;
+    font-feature-settings: "rlig" 1, "calt" 1; /* Ligatures and contextual alternates */
+    font-family: 'Inter', sans-serif; /* Using Inter as a modern sans-serif font */
+  }
+}
+
+/* Custom utility classes based on your provided CSS */
+@layer utilities {
+  .text-glow {
+    @apply relative;
+    /* Adjusted glow to be more subtle and use the primary color */
+    text-shadow: 0 0 8px hsla(var(--primary-hsl), 0.5), 0 0 20px hsla(var(--primary-hsl), 0.3);
+  }
+
+  .card-hover {
+    @apply transition-all duration-300 ease-out;
+  }
+  .card-hover:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 10px 20px hsla(var(--primary-hsl), 0.1), 0 6px 6px hsla(var(--primary-hsl), 0.08);
+  }
+
+  .gradient-border {
+    @apply relative p-px rounded-xl; /* p-px for border thickness */
+    /* Creates a gradient border effect */
+    background: linear-gradient(135deg, hsla(var(--primary-hsl), 0.5), hsla(var(--border-hsl), 0.3));
+  }
+  /* Este es el contenedor INTERNO del card que tendrá el fondo y el padding */
+  .gradient-border > .flex {
+    background-color: hsl(var(--card-hsl));
+    @apply rounded-[11px] p-5 sm:p-6; /* Radio ligeramente menor y padding aquí */
+  }
+
+
+  .cosmic-button {
+    @apply px-5 py-2.5 rounded-lg bg-primary text-primary-foreground font-medium 
+           transition-all duration-300 ease-out transform
+           hover:bg-opacity-80 hover:shadow-[0_0_15px_hsla(var(--primary-hsl),0.6)]
+           hover:scale-[1.03] active:scale-95;
+  }
+
+  .star {
+    @apply absolute rounded-full bg-white;
+    /* Subtle glow for stars */
+    box-shadow: 0 0 6px 1px rgba(255, 255, 255, 0.3);
+  }
+
+  .meteor {
+    @apply absolute rounded-full opacity-0; /* Start invisible, animation handles fade in/out */
+    /* Gradient for the meteor tail */
+    background: linear-gradient(to left, transparent, rgba(255, 255, 255, 0.6));
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.5));
+  }
+}
+
+/* Keyframe animations from your provided CSS, adapted for Tailwind config or direct use */
+/* These are referenced in tailwind.config.js */
+/*
+@keyframes float { ... }
+@keyframes pulse-subtle { ... }
+@keyframes fade-in { ... }
+@keyframes meteor { ... }
+*/
