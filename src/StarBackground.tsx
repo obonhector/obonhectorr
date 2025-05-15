@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 
 // Define interfaces for Star and Meteor properties for TypeScript
@@ -18,6 +17,7 @@ interface MeteorProps {
   y: number;
   delay: number;
   animationDuration: number;
+  angle: number;
 }
 
 export const StarBackground: React.FC = () => {
@@ -27,18 +27,19 @@ export const StarBackground: React.FC = () => {
   useEffect(() => {
     // Function to generate stars based on window size
     const generateStars = () => {
+      // Use a fixed number of stars based on screen size
       const numberOfStars = Math.floor(
-        (window.innerWidth * window.innerHeight) / 8000 // Adjusted density
+        (window.innerWidth * window.innerHeight) / 8000
       );
       const newStars: StarProps[] = [];
       for (let i = 0; i < numberOfStars; i++) {
         newStars.push({
           id: i,
-          size: Math.random() * 2.5 + 0.5, // Slightly smaller max size
+          size: Math.random() * 2.5 + 0.5,
           x: Math.random() * 100,
           y: Math.random() * 100,
-          opacity: Math.random() * 0.4 + 0.3, // Less bright, more subtle
-          animationDuration: Math.random() * 5 + 3, // Slower pulse
+          opacity: Math.random() * 0.4 + 0.3,
+          animationDuration: Math.random() * 5 + 3,
         });
       }
       setStars(newStars);
@@ -46,39 +47,42 @@ export const StarBackground: React.FC = () => {
 
     // Function to generate meteors
     const generateMeteors = () => {
-      const numberOfMeteors = 5; // Consistent number of meteors
+      const numberOfMeteors = 5;
       const newMeteors: MeteorProps[] = [];
+      
       for (let i = 0; i < numberOfMeteors; i++) {
+        // Generate random starting position
+        const x = Math.random() * 100; // Random x position (0-100%)
+        const y = Math.random() * 100; // Random y position (0-100%)
+        
+        // Generate random angle between 0 and 360 degrees
+        const angle = Math.random() * 360;
+        
         newMeteors.push({
           id: i,
-          size: Math.random() * 1.5 + 0.5, // Smaller meteors
-          x: Math.random() * 100, // Can start from anywhere horizontally
-          y: Math.random() * 20 - 10, // Can start slightly off-screen top
-          delay: Math.random() * 20, // Longer max delay for more spacing
-          animationDuration: Math.random() * 2 + 2.5, // Faster meteors
+          size: Math.random() * 1.5 + 0.5,
+          x,
+          y,
+          delay: Math.random() * 20,
+          animationDuration: Math.random() * 2 + 2.5,
+          angle,
         });
       }
       setMeteors(newMeteors);
     };
 
+    // Generate stars only once at component mount
     generateStars();
-    generateMeteors(); // Initial generation
+    generateMeteors();
 
-    // Periodically regenerate meteors for continuous effect
-    const meteorInterval = setInterval(generateMeteors, 15000); // Regenerate every 15 seconds
+    // Periodically regenerate only meteors for continuous effect
+    const meteorInterval = setInterval(generateMeteors, 15000);
 
-    // Handle window resize to regenerate stars
-    const handleResize = () => {
-      generateStars();
-    };
-    window.addEventListener("resize", handleResize);
-
-    // Cleanup function to remove event listener and interval
+    // Cleanup function to remove interval
     return () => {
-      window.removeEventListener("resize", handleResize);
       clearInterval(meteorInterval);
     };
-  }, []);
+  }, []); // Empty dependency array means this effect runs only once
 
   return (
     <div className="fixed inset-0 w-full h-full overflow-hidden pointer-events-none z-0">
@@ -94,6 +98,7 @@ export const StarBackground: React.FC = () => {
             top: `${star.y}%`,
             opacity: star.opacity,
             animationDuration: `${star.animationDuration}s`,
+            position: 'fixed', // Ensure stars stay fixed in place
           }}
         />
       ))}
@@ -103,13 +108,15 @@ export const StarBackground: React.FC = () => {
           key={`meteor-${meteor.id}`}
           className="meteor animate-meteor"
           style={{
-            width: `${meteor.size * 70}px`, // Meteor tail length
-            height: `${meteor.size}px`,   // Meteor thickness
+            width: `${meteor.size * 70}px`,
+            height: `${meteor.size}px`,
             left: `${meteor.x}%`,
             top: `${meteor.y}%`,
             animationDelay: `${meteor.delay}s`,
-            animationDuration: `${meteor.animationDuration}s`,
-          }}
+            '--meteor-duration': `${meteor.animationDuration}s`,
+            '--meteor-angle': `${meteor.angle}deg`,
+            position: 'fixed', // Ensure meteors stay fixed in place
+          } as React.CSSProperties}
         />
       ))}
     </div>
