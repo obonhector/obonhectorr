@@ -59,7 +59,7 @@ const cardData = [
     icon: Mail,
     title: 'Newsletter',
     description: 'Receive emails with valuable knowledge.',
-    buttonText: 'Sign Up',
+    buttonText: 'Soon',
     link: '#newsletter-signup', // Placeholder link
     animationDelay: '0.2s',
   },
@@ -79,8 +79,8 @@ const socialLinks = [
   {
     name: 'YouTube',
     icon: Youtube,
-    url: '[https://www.youtube.com/@AlThinkTank', // Reemplaza con tu URL real
-    username: '@obonhector',
+    url: '#youtube', // Reemplaza con tu URL real
+    username: 'Soon',
   },
   {
     name: 'Instagram',
@@ -122,7 +122,7 @@ const App: React.FC = () => {
               Hector Obon
             </h1>
             <p className="text-base sm:text-lg md:text-xl text-slate-300 mb-6 md:mb-8">
-              
+            Eyes on the stars. Mind in the game.
             </p>
             {/* Social Media Links */}
             <div className="flex flex-wrap justify-center items-center gap-4 md:gap-6">
