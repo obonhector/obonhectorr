@@ -122,14 +122,14 @@ const App: React.FC = () => {
             </p>
             
             {/* Social Media Links */}
-            <div className="flex justify-center items-center gap-2 mb-8">
+            <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 justify-items-center mb-8">
               {socialLinks.map((social) => (
                 <a
                   key={social.name}
                   href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center text-xs text-slate-300 hover:text-primary transition-colors duration-300 group px-2 py-1 rounded-md bg-black/30"
+                  className="flex items-center text-xs text-slate-300 hover:text-primary transition-colors duration-300 group px-2 py-1 rounded-md bg-black/30 w-full justify-center"
                   aria-label={`Hector Obon on ${social.name}`}
                 >
                   <div className="rounded-lg p-2 flex items-center">
