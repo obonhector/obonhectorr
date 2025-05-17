@@ -1,11 +1,10 @@
 import React from 'react';
 import { StarBackground } from './StarBackground';
-// No importamos Card desde './components/Card' porque ahora está definido aquí abajo
 import { Youtube, Instagram, Twitter, Linkedin, Mail, type LucideProps, BotIcon } from 'lucide-react';
 
 // --- Definición del componente Card ---
 interface CardProps {
-  icon: React.ElementType<LucideProps>; // Use ElementType for component icons
+  icon: React.ElementType<LucideProps>;
   title: string;
   description: string;
   buttonText: string;
@@ -14,7 +13,7 @@ interface CardProps {
 }
 
 const Card: React.FC<CardProps> = ({
-  icon: Icon, // Rename to Icon for use as a component
+  icon: Icon,
   title,
   description,
   buttonText,
@@ -23,34 +22,35 @@ const Card: React.FC<CardProps> = ({
 }) => {
   return (
     <div
-      className="bg-card/70 dark:bg-card/70 backdrop-blur-md gradient-border animate-fade-in w-full card-hover" // Se eliminó p-5 sm:p-6 porque se aplica en el div interno por gradient-border
+      className="bg-black/70 backdrop-blur-md rounded-xl animate-fade-in w-full hover:bg-black/80 transition-colors duration-300"
       style={{ animationDelay }}
     >
-      {/* El div interno ahora tiene el padding y el fondo para que funcione el gradient-border */}
-      <div className="flex flex-col sm:flex-row items-center sm:space-x-4 text-center sm:text-left">
-        <div className="mb-4 sm:mb-0">
-          <Icon className="h-10 w-10 sm:h-12 sm:w-12 text-primary" />
+      <div className="flex items-center p-4">
+        <div className="mr-4 flex-shrink-0">
+          <div className="w-12 h-12 rounded-lg bg-black/40 flex items-center justify-center">
+            <Icon className="h-6 w-6 text-primary" />
+          </div>
         </div>
-        <div className="flex-grow mb-4 sm:mb-0">
-          <h3 className="text-lg sm:text-xl font-semibold text-foreground mb-1">
-            {title}
-          </h3>
-          <p className="text-xs sm:text-sm text-slate-300">{description}</p>
+        <div className="flex-grow mr-3">
+          <h3 className="text-base font-semibold text-white mb-1">{title}</h3>
+          <p className="text-xs text-slate-400">{description}</p>
         </div>
         <a
           href={link}
-          className="cosmic-button mt-2 sm:mt-0 flex-shrink-0 text-sm px-4 py-2"
+          className="flex-shrink-0"
           target={link.startsWith('#') ? '_self' : '_blank'}
           rel="noopener noreferrer"
         >
-          {buttonText}
+          <div className="w-8 h-8 bg-black/40 rounded-lg flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white">
+              <path d="M7 17l9.2-9.2M17 17V7H7" />
+            </svg>
+          </div>
         </a>
       </div>
     </div>
   );
 };
-// --- Fin de la definición del componente Card ---
-
 
 // Data for the content cards
 const cardData = [
@@ -59,8 +59,8 @@ const cardData = [
     icon: Mail,
     title: 'Newsletter',
     description: 'Receive emails with valuable knowledge.',
-    buttonText: 'Soon',
-    link: '#newsletter-signup', // Placeholder link
+    buttonText: 'SOON',
+    link: '#newsletter-signup',
     animationDelay: '0.2s',
   },
   {
@@ -69,83 +69,85 @@ const cardData = [
     title: 'VisionAI',
     description: 'Discover my AI business.',
     buttonText: 'Learn More',
-    link: 'https://visionai.es/', // Reemplaza con tu playlist real
+    link: 'https://visionai.es/',
     animationDelay: '0.4s',
   },
 ];
 
-// Social media links data - CORREGIDO: URLs sin formato Markdown
+// Social media links data
 const socialLinks = [
   {
     name: 'YouTube',
     icon: Youtube,
-    url: '#youtube', // Reemplaza con tu URL real
-    username: 'Soon',
+    url: '#youtube',
+    username: '@SOON',
   },
   {
     name: 'Instagram',
     icon: Instagram,
-    url: 'https://www.instagram.com/obonhector/', // Reemplaza con tu URL real
+    url: 'https://www.instagram.com/obonhector/',
     username: '@obonhector',
   },
   {
     name: 'X',
     icon: Twitter,
-    url: 'https://x.com/obonhector', // Reemplaza con tu URL real
+    url: 'https://x.com/obonhector',
     username: '@obonhector',
   },
   {
     name: 'LinkedIn',
     icon: Linkedin,
-    url: 'https://www.linkedin.com/in/hector-obon/?originalSubdomain=es', // Reemplaza con tu URL real
+    url: 'https://www.linkedin.com/in/hector-obon/?originalSubdomain=es',
     username: '@obonhector',
   },
 ];
 
 const App: React.FC = () => {
   return (
-    <div className="relative min-h-screen bg-background text-foreground overflow-x-hidden">
+    <div className="relative min-h-screen bg-black text-foreground overflow-x-hidden">
       {/* StarBackground component for the animated background */}
       <StarBackground />
 
       {/* Main content container */}
-      <main className="relative z-10 flex flex-col items-center justify-center min-h-screen p-4 sm:p-6 lg:p-8 selection:bg-primary/40 selection:text-white">
-        <div className="container mx-auto max-w-3xl text-center">
+      <main className="relative z-10 flex flex-col items-center justify-center min-h-screen p-4">
+        <div className="container mx-auto max-w-md">
           {/* Header Section */}
-          <header className="mb-12 md:mb-16 animate-fade-in">
+          <header className="mb-8 animate-fade-in text-center">
             <img 
               src="/logohector.png" 
               alt="Hector Obon Logo" 
               className="mx-auto mb-4 md:mb-6 h-12 w-12 md:h-16 md:w-16 animate-float"
             />
-            <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold text-glow mb-3 md:mb-4">
+            <h1 className="text-4xl font-bold text-white mb-3">
               Hector Obon
             </h1>
-            <p className="text-base sm:text-lg md:text-xl text-slate-300 mb-6 md:mb-8">
-            Eyes on the stars. Mind in the game.
+            <p className="text-base text-slate-400 mb-6">
+              Eyes on the stars. Mind in the game.
             </p>
+            
             {/* Social Media Links */}
-            <div className="flex flex-wrap justify-center items-center gap-4 md:gap-6">
+            <div className="flex justify-center items-center gap-2 mb-8">
               {socialLinks.map((social) => (
                 <a
                   key={social.name}
                   href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center text-sm text-slate-300 hover:text-primary transition-colors duration-300 group"
+                  className="flex items-center text-xs text-slate-300 hover:text-primary transition-colors duration-300 group px-2 py-1 rounded-md bg-black/30"
                   aria-label={`Hector Obon on ${social.name}`}
                 >
-                  <social.icon className="h-5 w-5 md:h-6 md:w-6 mr-2 group-hover:scale-110 transition-transform" />
-                  {social.username}
+                  <div className="rounded-lg p-2 flex items-center">
+                    <social.icon className="h-4 w-4 text-white" />
+                    <span className="text-xs text-white ml-1">{social.username.split('@')[1]}</span>
+                  </div>
                 </a>
               ))}
             </div>
           </header>
 
           {/* Content Sections - Cards */}
-          <section className="grid grid-cols-1 gap-6 md:gap-8 w-full">
+          <section className="grid grid-cols-1 gap-4 w-full">
             {cardData.map((card) => (
-              // Usamos el componente Card definido arriba
               <Card
                 key={card.id}
                 icon={card.icon}
@@ -159,7 +161,7 @@ const App: React.FC = () => {
           </section>
 
           {/* Footer Section */}
-          <footer className="mt-12 md:mt-16 pt-8 text-center text-sm text-slate-400 animate-fade-in" style={{ animationDelay: '0.8s' }}>
+          <footer className="mt-8 pt-4 text-center text-xs text-slate-500 animate-fade-in" style={{ animationDelay: '0.8s' }}>
             <p>© {new Date().getFullYear()} Hector Obon</p>
           </footer>
         </div>
