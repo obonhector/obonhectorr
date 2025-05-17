@@ -7,7 +7,6 @@ interface CardProps {
   icon: React.ElementType<LucideProps>;
   title: string;
   description: string;
-  buttonText: string;
   link: string;
   animationDelay?: string;
 }
@@ -16,7 +15,6 @@ const Card: React.FC<CardProps> = ({
   icon: Icon,
   title,
   description,
-  buttonText,
   link,
   animationDelay = '0s',
 }) => {
@@ -59,7 +57,6 @@ const cardData = [
     icon: Mail,
     title: 'Newsletter',
     description: 'Receive emails with valuable knowledge.',
-    buttonText: 'SOON',
     link: '#newsletter-signup',
     animationDelay: '0.2s',
   },
@@ -68,7 +65,6 @@ const cardData = [
     icon: BotIcon,
     title: 'VisionAI',
     description: 'Discover my AI business.',
-    buttonText: 'Learn More',
     link: 'https://visionai.es/',
     animationDelay: '0.4s',
   },
@@ -153,7 +149,6 @@ const App: React.FC = () => {
                 icon={card.icon}
                 title={card.title}
                 description={card.description}
-                buttonText={card.buttonText}
                 link={card.link}
                 animationDelay={card.animationDelay}
               />
